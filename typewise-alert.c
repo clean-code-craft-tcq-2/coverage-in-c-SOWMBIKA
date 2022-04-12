@@ -1,11 +1,11 @@
 #include "typewise-alert.h"
 #include <stdio.h>
 
-BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
-  if(value < lowerLimit) {
+BreachType inferBreach(double value, BatteryConfig_s currentBatteryConfig) {
+  if(value < currentBatteryConfig.lowerLimit) {
     return TOO_LOW;
   }
-  if(value > upperLimit) {
+  if(value > currentBatteryConfig.upperLimit) {
     return TOO_HIGH;
   }
   return NORMAL;
