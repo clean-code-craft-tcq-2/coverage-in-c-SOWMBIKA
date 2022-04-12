@@ -19,6 +19,10 @@ FnPtrPrintToController FuncPointerPrintToController = &PrintToControllerStub;
 FnPtrPrintToEmail FuncPointerPrintToEmail = &PrintToEmailStub;
 #endif 
 
-TEST_CASE("infers the breach according to limits") {
-  REQUIRE(InferBreach(12, 20, 30) == TOO_LOW);
+TEST_CASE("InferBreach -Lower limit Temperature Check") {
+  BatteryConfig_s BatteryInfo;
+  BatteryInfo.lowerLimitTemp = 20;
+  BatteryInfo.higherLimitTemp = 50;
+  double value = 15;
+  REQUIRE(InferBreach(value, BatteryInfo) == TOO_LOW);
 }
