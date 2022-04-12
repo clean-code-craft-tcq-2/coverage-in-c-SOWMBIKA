@@ -1,7 +1,10 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 
 #include "test/catch.hpp"
-#include "BatteryValidation.h"
+#include <stdbool.h>
+#include "Config.h"
+#include "ValidateBattery.h"
+#include "SendAlertInfo.h"
 
 // Note : For the test environment stub for all the print interfaces used
 #ifdef TEST_ENVIRONMENT
@@ -19,10 +22,11 @@ FnPtrPrintToController FuncPointerPrintToController = &PrintToControllerStub;
 FnPtrPrintToEmail FuncPointerPrintToEmail = &PrintToEmailStub;
 #endif 
 
-TEST_CASE("InferBreach -Lower limit Temperature Check") {
-  BatteryConfig_s BatteryInfo;
-  BatteryInfo.lowerLimitTemp = 20;
-  BatteryInfo.higherLimitTemp = 50;
+
+TEST_CASE("InferBreach -Temperature value passed is less than lower limit") {
+  BatteryParam_st BatteryLimits;
+  BatteryLimits.lowerLimitTemp = 20;
+  BatteryLimits.higherLimitTemp = 50;
   double value = 15;
-  REQUIRE(InferBreach(value, BatteryInfo) == TOO_LOW);
+  REQUIRE(InferBreach(value, BatteryLimits) == TOO_LOW);
 }
