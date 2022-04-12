@@ -5,7 +5,7 @@
 
 
 //Add here, so functionality can be extended for new parameters in future.
-BatteryConfig_s BatteryParamValues[MAX_COOLING_TYPES] =
+BatteryConfig_s BatteryInfo[MAX_COOLING_TYPES] =
 {
   {
   .coolingType =  PASSIVE_COOLING,
@@ -57,8 +57,8 @@ AlertTarget_s AlertTargetInfo[MAX_ALERT_TARGET_POSSIBILITIES] =
 
 
 
-char AlertMessageOverEmail[MAX_BREACH_TYPES][100] =
-{"Not Applicable","Hi, the temperature is too low\n","Hi, the temperature is too high\n"};
+char AlertMessageOverEmail[MAX_BREACH_TYPES][50] =
+{"No warning","Too Low Temperature\n","Too Low Temperature\n"};
 
 //In case of production environment following print functionalities are used.
 // Refer test-alerts.cpp file for the stub functions used in the unit test environment
