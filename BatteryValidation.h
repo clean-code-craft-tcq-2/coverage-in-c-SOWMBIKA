@@ -57,7 +57,7 @@ typedef struct
 
 extern MailNotification_st MailNotificationInfo[MAX_BREACH_TYPES];
 extern AlertTarget_st AlertTargetInfo[MAX_ALERT_TARGET_POSSIBILITIES];
-extern BatteryParam_st BatteryParamValues[MAX_COOLING_TYPES];
+extern BatteryConfig_s BatteryInfo[MAX_COOLING_TYPES];
 extern char AlertMessageOverEmail[MAX_BREACH_TYPES][50];
 extern FnPtrPrintToController FuncPointerPrintToController;
 extern FnPtrPrintToEmail FuncPointerPrintToEmail;
@@ -66,7 +66,7 @@ void SendAlertToController(BreachType breachType);
 void SendAlertToEmail(BreachType breachType);
 void PrintToController (const unsigned short Header, BreachType BreachTypeInfo);
 void PrintToEmail (const char* Recepient, char Message[]);
-BreachType InferBreach(double Value, BatteryParam_st BatteryLimits);
-BatteryParam_st ClassifyTemp(CoolingType CoolingTypeInfo);
+BreachType InferBreach(double Value, BatteryConfig_s BatteryLimits);
+BatteryConfig_s ClassifyTemp(CoolingType CoolingTypeInfo);
 bool ValidateBattery(AlertTarget AlertTargetIndex, CoolingType CoolingTypeInfo, double TemperatureInC);
 bool ValidateRange(size_t Var1, size_t Var2);
