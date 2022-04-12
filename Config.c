@@ -4,7 +4,7 @@
 #include "ValidateBattery.h"
 #include "SendAlertInfo.h"
 
-// Note : In future if more number of cooling types with varying temperatures are introduced, this configuration alone can be extended to meet the need.
+//Note : In future if more number of cooling types with varying temperatures are introduced, this configuration alone can be extended to meet the need.
 BatteryParam_st BatteryParamValues[MAX_COOLING_TYPES] =
 {
   {
