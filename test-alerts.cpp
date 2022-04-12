@@ -95,3 +95,28 @@ TEST_CASE("ClassifyTemp -Negative scenario- INVALID_COOLING_TYPE  Test cooling t
   BatteryLimits = ClassifyTemp(INVALID_COOLING_TYPE);
   REQUIRE(BatteryLimits.status  == FAILURE);
 }
+
+TEST_CASE("ValidateRange -Positive scenario-  On passing 2 input values with (var1 >= 0 && var1 < var2) ") {
+  bool ValidateRangeStatus;
+  ValidateRangeStatus = ValidateRange (5,10);
+  REQUIRE(ValidateRangeStatus  == true);
+}
+
+TEST_CASE("ValidateRange -Negative scenario- On passing 2 input values with (var1 >= 0 && var1 > var2) ") {
+  bool ValidateRangeStatus;
+  ValidateRangeStatus = ValidateRange (15,10);
+  REQUIRE(ValidateRangeStatus  == false);
+}
+
+
+TEST_CASE("ValidateRange -Negative scenario- On passing 2 input values with (var1 < 0 && var1 < var2) ") {
+  bool ValidateRangeStatus;
+  ValidateRangeStatus = ValidateRange (-1,10);
+  REQUIRE(ValidateRangeStatus  == false);
+}
+
+TEST_CASE("ValidateRange -Negative scenario- On passing 2 input values with (var1 < 0 && var1 > var2) ") {
+  bool ValidateRangeStatus;
+  ValidateRangeStatus = ValidateRange (-1,-5);
+  REQUIRE(ValidateRangeStatus  == false);
+}
