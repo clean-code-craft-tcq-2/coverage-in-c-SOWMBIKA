@@ -30,3 +30,35 @@ TEST_CASE("InferBreach -Temperature value passed is less than lower limit") {
   double value = 15;
   REQUIRE(InferBreach(value, BatteryLimits) == TOO_LOW);
 }
+
+TEST_CASE("InferBreach - Temperature value passed is more than higher limit") {
+  BatteryParam_st BatteryLimits;
+  BatteryLimits.lowerLimitTemp = 20;
+  BatteryLimits.higherLimitTemp = 50;
+  double value = 60;
+  REQUIRE(InferBreach(value, BatteryLimits) == TOO_HIGH);
+}
+
+TEST_CASE("InferBreach - Temperature value passed is in the normal range") {
+  BatteryParam_st BatteryLimits;
+  BatteryLimits.lowerLimitTemp = 20;
+  BatteryLimits.higherLimitTemp = 50;
+  double value = 30;
+  REQUIRE(InferBreach(value, BatteryLimits) == NORMAL);
+}
+
+TEST_CASE("InferBreach - Temperature value passed is in the lower boundary") {
+  BatteryParam_st BatteryLimits;
+  BatteryLimits.lowerLimitTemp = 20;
+  BatteryLimits.higherLimitTemp = 50;
+  double value = 20;
+  REQUIRE(InferBreach(value, BatteryLimits) == NORMAL);
+}
+
+TEST_CASE("InferBreach -Temperature value passed is in the higher boundary") {
+  BatteryParam_st BatteryLimits;
+  BatteryLimits.lowerLimitTemp = 20;
+  BatteryLimits.higherLimitTemp = 50;
+  double value = 50;
+  REQUIRE(InferBreach(value, BatteryLimits) == NORMAL);
+}
