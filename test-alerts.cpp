@@ -62,3 +62,36 @@ TEST_CASE("InferBreach -Temperature value passed is in the higher boundary") {
   double value = 50;
   REQUIRE(InferBreach(value, BatteryLimits) == NORMAL);
 }
+
+TEST_CASE("ClassifyTemp -Positive scenario- PASSIVE_COOLING Cooling Type based lower and upper temperature limit derivation ") {
+  BatteryParam_st BatteryLimits;
+  BatteryLimits = ClassifyTemp(PASSIVE_COOLING);
+  REQUIRE(BatteryLimits.status  == SUCCESS);
+  REQUIRE(BatteryLimits.coolingType  == PASSIVE_COOLING);
+  REQUIRE(BatteryLimits.lowerLimitTemp  == 0);
+  REQUIRE(BatteryLimits.higherLimitTemp == 35);
+}
+
+TEST_CASE("ClassifyTemp -Positive scenario- HI_ACTIVE_COOLING Cooling Type based lower and upper temperature limit derivation ") {
+  BatteryParam_st BatteryLimits;
+  BatteryLimits = ClassifyTemp(HI_ACTIVE_COOLING);
+  REQUIRE(BatteryLimits.status  == SUCCESS);
+  REQUIRE(BatteryLimits.coolingType  == HI_ACTIVE_COOLING);
+  REQUIRE(BatteryLimits.lowerLimitTemp  == 0);
+  REQUIRE(BatteryLimits.higherLimitTemp == 45);
+}
+
+TEST_CASE("ClassifyTemp -Positive scenario- MED_ACTIVE_COOLING Cooling Type based lower and upper temperature limit derivation ") {
+  BatteryParam_st BatteryLimits;
+  BatteryLimits = ClassifyTemp(MED_ACTIVE_COOLING);
+  REQUIRE(BatteryLimits.status  == SUCCESS);
+  REQUIRE(BatteryLimits.coolingType  == MED_ACTIVE_COOLING);
+  REQUIRE(BatteryLimits.lowerLimitTemp  == 0);
+  REQUIRE(BatteryLimits.higherLimitTemp == 40);
+}
+
+TEST_CASE("ClassifyTemp -Negative scenario- INVALID_COOLING_TYPE  Test cooling type which is not under the configured list ") {
+  BatteryParam_st BatteryLimits;
+  BatteryLimits = ClassifyTemp(INVALID_COOLING_TYPE);
+  REQUIRE(BatteryLimits.status  == FAILURE);
+}
