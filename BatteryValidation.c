@@ -3,23 +3,23 @@
 #include "BatteryValidation.h"
 
 //Function to validate if the value is within the limits
-BreachType InferBreach(double Value, BatteryParam_st BatteryLimits) 
+BreachType InferBreach(double Value, BatteryConfig_s currentBatteryInfo) 
 {
-  if(Value < BatteryLimits.lowerLimitTemp) {return TOO_LOW;}
-  if(Value > BatteryLimits.higherLimitTemp) { return TOO_HIGH;}
+  if(Value < currentBatteryInfo.lowerLimitTemp) {return TOO_LOW;}
+  if(Value > currentBatteryInfo.higherLimitTemp) { return TOO_HIGH;}
   return NORMAL;
 }
 
 //Function to fill the temperature limits based on cooling type.
 // Here, status is added to check if the passed cooling type is valid, if not the status would be set to false.
-BatteryParam_st ClassifyTemp(CoolingType CoolingTypeInfo)
+BatteryConfig_s ClassifyTemp(CoolingType CoolingTypeInfo)
 {
-  BatteryParam_st batteryParameters; 
-  batteryParameters.status = ValidateRange(CoolingTypeInfo,MAX_COOLING_TYPES);
-  batteryParameters.coolingType = CoolingTypeInfo;
-  batteryParameters.lowerLimitTemp = BatteryParamValues[CoolingTypeInfo].lowerLimitTemp;
-  batteryParameters.higherLimitTemp = BatteryParamValues[CoolingTypeInfo].higherLimitTemp;
-  return batteryParameters;
+  BatteryConfig_s currentBatteryInfo; 
+  currentBatteryInfo.status = ValidateRange(CoolingTypeInfo,MAX_COOLING_TYPES);
+  currentBatteryInfo.coolingType = CoolingTypeInfo;
+  currentBatteryInfo.lowerLimitTemp = BatteryInfo[CoolingTypeInfo].lowerLimitTemp;
+  currentBatteryInfo.higherLimitTemp = BatteryInfo[CoolingTypeInfo].higherLimitTemp;
+  return currentBatteryInfo;
 }
 
 // Utility function to validate if the variable 1 is within the specified range.
@@ -35,7 +35,7 @@ bool ValidateRange(size_t Var1, size_t Var2)
 // Status is checked if the parameters passed are within permissible range.
 bool ValidateBattery(AlertTarget AlertTargetInfo, CoolingType CoolingTypeInfo, double TemperatureInC)
 {
-  BatteryParam_st batteryTempLimits;
+  BatteryConfig_s batteryTempLimits;
   BreachType processedBreachType;
   bool status = FAILURE;
   batteryTempLimits = ClassifyTemp(CoolingTypeInfo);
