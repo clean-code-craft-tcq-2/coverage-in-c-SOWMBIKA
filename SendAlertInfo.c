@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-//In case of production environment following print functionalities are used.
+// In case of production environment following print functionalities are used.
 // Refer test-alerts.cpp file for the stub functions used in the unit test environment
 #ifdef PRODUCTION_ENVIRONMENT
 void PrintToController (const unsigned short Header, BreachType BreachTypeInfo)
